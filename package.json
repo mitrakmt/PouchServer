@@ -2,25 +2,30 @@
   "name": "pouch",
   "version": "0.0.1",
   "description": "One article a day, delivered right to your laptop or smartphone.",
-  "main": "server/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michael Mitrakos",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.0",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
+    "crypto-js": "^3.1.8",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "helmet": "^3.1.0",
-    "jsonwebtoken": "^7.1.9",
+    "jsonwebtoken": "^7.2.1",
     "lodash": "^4.17.2",
     "moment": "^2.17.0",
     "morgan": "^1.7.0",
     "path": "^0.12.7",
+    "pg": "^6.1.1",
     "request": "^2.79.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "sequelize": "^3.27.0"
   }
 }

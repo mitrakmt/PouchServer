@@ -10,6 +10,8 @@ let jwt = require('jsonwebtoken')
 let rootRouter = require('./router')
 let db = require('./db')
 let PORT = process.env.PORT || 8000
+let request = require('request-promise')
+require('dotenv').config();
 
 app.use(logger('dev'))
 app.use(bodyParser.json())

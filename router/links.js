@@ -1,8 +1,9 @@
-let linksRouter = require('express').Router()
+let linkRouter = require('express').Router()
+let linkController = require('../controller/links')
 
-linksRouter.route('/')
-    .get()
-    .post()
-    .put()
+linkRouter.route('/')
+    .get(linkController.GET_LINKS)
+    .post(linkController.ADD_LINK)
+    .delete(linkController.REMOVE_LINK)
 
-module.exports = linksRouter
+module.exports = linkRouter
