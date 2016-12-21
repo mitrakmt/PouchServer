@@ -1,50 +1,32 @@
 let workerModel = {}
-var Promise = require("bluebird");
+let Promise = require("bluebird");
+let Sequelize = require('sequelize')
 let Users = require('../db').Users
 let Links = require('../db').Links
 
 workerModel.GET_NEW_QUEUE = () => {
     let queue = []
-    Users.findAll({})
+    let promiseArray = []
+
+    return Users.findAll({})
         .then(users => {
-            for (var i = 0; i < users.length; i++) {
-                workerModel.FIND_BEST_LINK(users[i].id)
-                    .then(urls => {
-                        console.log("URLS", urls)
-                        queue.push({
-                            urls: urls,
-                            email: users[i].email
-                        })
-                    })
-            }
+            // eventually workerModel.FIND_BEST_LINK(users id) , group into an array, send back.
         })
-    console.log("QUEUE RIGHT BEFORE RETURN IN GET NEW QUEUE MODEL", queue)
-    return queue
 }
 
 workerModel.FIND_BEST_LINK = (userId) => {
-    let flag = false
-    let resultLink
-    for (var i = 10; i >= 1; i--) {
-        Links.findOne({
-            where: {
-                userId: userId,
-                importance: i
-            }
-        })
-        .then(link => {
-            console.log("LINK INSIDE LOOP", link)
-            if (link) {
-                console.log("RETURNING RESULT: ", link)
-                flag = true
-                resultLink = link
-                return resultLink
-            }
-        })
-        if (flag) {
-            break;
-        }
-    }
+    return Links.findOne({
+        where: {
+            userId: userId
+        },
+        order: [
+            ['importance', 'DESC']
+        ]
+    })
+    .then(links => {
+        return links[0]
+        console.log("LINK FOR EACH USER ===============", links)
+    })
 }
 
 module.exports = workerModel

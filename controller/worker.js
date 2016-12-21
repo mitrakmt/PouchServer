@@ -4,7 +4,6 @@ let workerModel = require('../model/worker')
 
 workerController.GET_QUEUE_FOR_WORKER = (req, res) => {
     let QUEUE_PROMISE = () => {
-
         return new Promise((resolve, reject) => {
             let result = workerModel.GET_NEW_QUEUE()
             resolve(result);

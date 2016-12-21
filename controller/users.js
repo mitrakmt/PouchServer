@@ -4,7 +4,7 @@ let usersModel = require('../model/users')
 let request = require('request-promise')
 
 usersController.GET_USER = (req, res) => {
-    let userId = req.headers.userId
+    let userId = req.headers.userid
 
     usersModel.GET_USER(userId)
         .then(user => {
@@ -44,7 +44,11 @@ usersController.CREATE_USER = (req, res) => {
 
     usersModel.CREATE_USER(email, password, firstName, lastName, profileImageUrl, frequency, categorySelected)
         .then(user => {
-            res.status(200).send(user)
+            if(user.errors[0].message === 'email must be unique') {
+                res.status(400).send('Email must be unique')
+            } else {
+              res.status(200).send(user)
+            }
         })
         .catch(error => {
             res.status(204).send(error)
